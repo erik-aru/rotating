@@ -19,7 +19,7 @@ function startSwitching() {
         console.warn("Video playback failed:", err);
       }
     }
-  }, 60000);
+  }, 15000);
 }
 
 startSwitching();
