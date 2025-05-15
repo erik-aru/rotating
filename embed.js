@@ -31,8 +31,8 @@ async function signInAndEmbed() {
       const accessToken = await getAccessToken();
       const embedConfig = {
         type: 'report',
-        id: "YOUR_REPORT_ID",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YOUR_REPORT_ID&groupId=YOUR_WORKSPACE_ID",
+        id: "0c4d53af-d7b5-40b5-89bd-5ec88136a974",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=0c4d53af-d7b5-40b5-89bd-5ec88136a974&autoAuth=true&ctid=8f31395c-0b8b-42b4-a967-7f095fd45176",
         accessToken: accessToken,
         tokenType: powerbi.models.TokenType.Aad,
         settings: {
