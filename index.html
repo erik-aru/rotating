@@ -4,16 +4,12 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' https://alcdn.msauth.net https://cdn.jsdelivr.net;
-    connect-src 'self' https://login.microsoftonline.com https://api.powerbi.com;
     frame-src 'self' https://app.powerbi.com;
     style-src 'self' 'unsafe-inline';
     media-src 'self' https://www.w3schools.com;
+    connect-src 'self' https://login.microsoftonline.com https://api.powerbi.com;
   ">
   <title>Power BI & Video Switcher</title>
-  <script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@3.7.0/lib/msal-browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.0/dist/powerbi.min.js"></script>
-  <script defer src="embed.js"></script>
   <style>
     body { font-family: sans-serif; margin: 0; padding: 0; }
     #container { width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; }
@@ -23,7 +19,9 @@
 </head>
 <body>
   <div id="container">
-    <div id="reportContainer"></div>
+    <div id="reportContainer">
+      <iframe title="VAR and LL matches" width="100%" height="100%" src="https://app.powerbi.com/reportEmbed?reportId=0c4d53af-d7b5-40b5-89bd-5ec88136a974&autoAuth=true&ctid=8f31395c-0b8b-42b4-a967-7f095fd45176" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
     <div id="videoContainer">
       <video id="video" muted autoplay loop>
         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
@@ -31,5 +29,31 @@
       </video>
     </div>
   </div>
+  <script>
+    function startSwitching() {
+      const reportContainer = document.getElementById("reportContainer");
+      const videoContainer = document.getElementById("videoContainer");
+      const video = document.getElementById("video");
+      let showVideo = false;
+
+      reportContainer.style.display = "block";
+
+      setInterval(async () => {
+        showVideo = !showVideo;
+        reportContainer.style.display = showVideo ? "none" : "block";
+        videoContainer.style.display = showVideo ? "block" : "none";
+
+        if (showVideo) {
+          try {
+            await video.play();
+          } catch (err) {
+            console.warn("Video playback failed:", err);
+          }
+        }
+      }, 60000);
+    }
+
+    startSwitching();
+  </script>
 </body>
 </html>
