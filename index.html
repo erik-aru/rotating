@@ -31,7 +31,14 @@
     </div>
   </div>
 
-  <script>
+<script>
+  function initializeMSAL() {
+    if (typeof msal === "undefined") {
+      console.warn("MSAL not loaded yet, retrying...");
+      setTimeout(initializeMSAL, 100); // Retry every 100ms
+      return;
+    }
+
     const msalConfig = {
       auth: {
         clientId: "YOUR_CLIENT_ID",
@@ -128,6 +135,10 @@
     }
 
     signInAndEmbed();
-  </script>
+  }
+
+  // Start initialization
+  initializeMSAL();
+</script>
 </body>
 </html>
