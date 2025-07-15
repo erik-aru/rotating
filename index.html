@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Playlist Autoplay</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: black; }
+    #player { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <!-- Player container -->
+  <div id="player"></div>
+
+  <!-- Load YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    let player;
+
+    // This function is called by the YouTube API
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        playerVars: {
+          listType: 'playlist',
+          list: 'PLuL7wM7eSfso8p65uR1raXJPhHOqy2I1I', // Replace this with your playlist ID
+          autoplay: 1,
+          loop: 1,
+          index: 0,
+          modestbranding: 1,
+          controls: 1
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+      // When video ends, do something (YouTube playlist usually handles this)
+      if (event.data == YT.PlayerState.ENDED) {
+        console.log('Video ended');
+      }
+    }
+  </script>
+</body>
+</html>
