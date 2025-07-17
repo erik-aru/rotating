@@ -15,40 +15,43 @@
   <!-- Load YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
-  <script>
-    let player;
+<script>
+  let player;
 
-    // This function is called by the YouTube API
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        playerVars: {
-          listType: 'playlist',
-          list: 'PLuL7wM7eSfso8p65uR1raXJPhHOqy2I1I', // Replace this with your playlist ID
-          autoplay: 1,
-          loop: 1,
-          index: 0,
-          modestbranding: 1,
-          controls: 1
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '100%',
+      width: '100%',
+      playerVars: {
+        listType: 'playlist',
+        list: 'PLuL7wM7eSfso8p65uR1raXJPhHOqy2I1I',
+        autoplay: 1,
+        loop: 1,
+        modestbranding: 1,
+        controls: 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
 
-    function onPlayerReady(event) {
+  function onPlayerReady(event) {
+    const savedIndex = localStorage.getItem('lastVideoIndex');
+    if (savedIndex !== null) {
+      player.playVideoAt(parseInt(savedIndex));
+    } else {
       event.target.playVideo();
     }
+  }
 
-    function onPlayerStateChange(event) {
-      // When video ends, do something (YouTube playlist usually handles this)
-      if (event.data == YT.PlayerState.ENDED) {
-        console.log('Video ended');
-      }
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      const currentIndex = player.getPlaylistIndex();
+      localStorage.setItem('lastVideoIndex', currentIndex);
     }
-  </script>
+  }
+</script>
 </body>
 </html>
