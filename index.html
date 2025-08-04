@@ -122,6 +122,13 @@ db.collection("protectedContent").doc("pageData").get()
           login();
         }
       });
+
+      btn.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          login();
+        }
+      });
+      
     };
 
     function logout() {
