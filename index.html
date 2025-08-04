@@ -106,7 +106,7 @@ db.collection("protectedContent").doc("pageData").get()
   }
 });
     function login() {
-      alert("Login failed:");
+     
       var email = document.getElementById("email").value;
       var password = document.getElementById("password").value;
       firebase.auth().signInWithEmailAndPassword(email, password)
