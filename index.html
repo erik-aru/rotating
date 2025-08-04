@@ -34,7 +34,7 @@
     <h2>Login</h2>
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
+    <button id="loginBtn">Login</button>
   </div>
 
   <div id="app-content" style="display: none;">
@@ -108,6 +108,21 @@ db.collection("protectedContent").doc("pageData").get()
           alert("Login failed: " + error.message);
         });
     }
+
+        // Attach both click and key support
+    window.onload = function () {
+      var btn = document.getElementById('loginBtn');
+
+      // Fallback click handler for older LG remotes
+      btn.onclick = login;
+
+      // Support for Enter key from remote control
+      btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          login();
+        }
+      });
+    };
 
     function logout() {
       firebase.auth().signOut();
