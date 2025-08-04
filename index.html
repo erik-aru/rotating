@@ -54,7 +54,7 @@
 
   <script>
     // Replace this with your own config
-    const firebaseConfig = {
+    var firebaseConfig = {
       apiKey: "AIzaSyCRP0Ike-6l1Vsnz_f_n41ogG9l6ubMTIE",
       authDomain: "rotation-2fc0d.firebaseapp.com",
       projectId: "rotation-2fc0d",
@@ -62,7 +62,7 @@
     };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+var db = firebase.firestore();
 
 // When user is logged in
 firebase.auth().onAuthStateChanged(user => {
@@ -76,9 +76,9 @@ db.collection("protectedContent").doc("pageData").get()
       document.getElementById("protected-content").innerHTML = doc.data().htmlContent2;
 
       //Re-execute any <script> tags manually if needed (optional)
-      const scripts = document.querySelectorAll("#protected-content script");
+      var scripts = document.querySelectorAll("#protected-content script");
       scripts.forEach(script => {
-        const newScript = document.createElement("script");
+        var newScript = document.createElement("script");
         if (script.src) {
           newScript.src = script.src;
         } else {
@@ -102,8 +102,8 @@ db.collection("protectedContent").doc("pageData").get()
 });
     function login() {
       alert("Login failed:");
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
       firebase.auth().signInWithEmailAndPassword(email, password)
         .catch(error => {
           alert("Login failed: " + error.message);
