@@ -78,7 +78,7 @@ firebase.auth().onAuthStateChanged(user => {
 db.collection("protectedContent").doc("pageData").get()
   .then(doc => {
     if (doc.exists) {
-      document.getElementById("protected-content").innerHTML = doc.data().htmlContent2;
+      document.getElementById("protected-content").innerHTML = doc.data().htmlContent3;
 
       //Re-execute any <script> tags manually if needed (optional)
       var scripts = document.querySelectorAll("#protected-content script");
